@@ -33,14 +33,18 @@ In the case of geographical data, we have two types of data:
  - *Points of Interest* represent everything that was given a name by man. Buildings, tops of mountains, objects and much more.
  - The administrative information represents country borders and regions.
 
+On top of the maps, any kind of relevant data can be plotted. For example, price of houses and rents can be projected on top of a map in order to provide information. Such data can come from any source: government, private companies, or even *crowdsourced*.
+
+The following section tries to make order among the tools used to work with maps under [Open Data licenses][5] (such as the Open Data Commons Open Database License used by OpenStreetMap).
+ 
 Let's move deeper in putting all the pieces on the board. I will cover the following:
 
- 1. [Leaflet][5]
- 2. [OpenStreetMap][6]
- 3. [Overpass API][7]
- 4. [OpenLayers][8]
+ 1. [Leaflet][6]
+ 2. [OpenStreetMap][7]
+ 3. [Overpass API][8]
+ 4. [OpenLayers][9]
  5. MapQuest
- 6. [MapBox][9]
+ 6. [MapBox][10]
 
 As the most knowledgeable people may have noticed, I am mixing up various kinds of tools and services, but they represent the pieces of the puzzle we need to put together in order to achieve our goals of obtaining the desired information, so please bear with me. 
   
@@ -51,7 +55,7 @@ Leaflet is a Javascript library for displaying a map in a HTML page and working 
 
 OpenStreetMap
 ------------
-OpenStreetMap is a project to create a "wiki" map of the world. This project is ran by the OpenStreetMap Foundation. The OpenStreetMap database is a source for both Points of Interest and tiles, and it is made accessible to end-users through the portal [OpenStreetMap.org.][10], but the entire database can be [downloaded][11] on your hard drive (if you know what to do with it). 
+OpenStreetMap is a project to create a "wiki" map of the world. This project is ran by the OpenStreetMap Foundation. The OpenStreetMap database is the real big player in here because it is a source for both Points of Interest and tiles. It is made accessible to end-users through the portal [OpenStreetMap.org.][11], but the entire database can be [downloaded][12] on your hard drive (if you know what to do with it). 
 OpenStreetMap data is more useful if made available through certain APIs, such as OverPass API.
 Going back to examples, let's say you want to look for a city you know by name -but not by location. In that case, OpenStreetMap.org offers a handy search box that returns a list of places according to the terms searched by the user. Although this is seamless to the end-user, this search is actually delivered by another service called **OpenStreetMap Nominatim**. 
 
@@ -59,7 +63,7 @@ Overpass API
 -----------
 Overpass API is, as the name says and API (an interface) made to run queries on the OpenStreetMap database so you don't have to come up for a way to do that yourself. 
 With Overpass API a developer can run queries for content within OpenStreetMap database, ranging from streets to any kind of *tagged* object there contained.
-[Overpass-Turbo][12] is a great tool to test queries on Overpass API and export them (or the data) into various formats.
+[Overpass-Turbo][13] is a great tool to test queries on Overpass API and export them (or the data) into various formats.
 Overpass API is a service targeted to developers, so they can build easy to use apps on top of OpenStreetMap contents. 
 
 MapBox
@@ -73,11 +77,11 @@ As MapBox, also MapQuest is a commercial company. While MapBox is targeted to de
 ## A real-life scenario: Leaflet with OpenStreetMap, MapBox and Overpass API ##
 
 So how does all of it fit together?
-I will now run through the building of DoveSiButta, an open-data service for recycling bins localization. DoveSiButta translates to WhereDoIThrowIt in Italian, that is where the service was originated. 
+I will now run through the building of a web application that uses Leaflet to display a map loaded by MapBox, that allows to search for a place (e.g. a City) and that retrieves from OpenStreetMap database the location of recycle facilities in the area. 
  
-The project is also [available on GitHub][13].
+The project is also [available on GitHub][14].
  
-Some conclusions
+Notes and Questions
 ---------------
 
 - Can Open Data and Google Maps co-exist?
@@ -107,12 +111,13 @@ This is harder. Say that you have information about locations provided by Google
   [2]: http://maps.bing.com
   [3]: https://developers.google.com/maps/licensing
   [4]: https://developers.google.com/maps/terms?hl=en
-  [5]: http://leafletjs.com/
-  [6]: http://www.openstreetmap.org/
-  [7]: http://overpass-api.de/
-  [8]: http://openlayers.org/
-  [9]: https://www.mapbox.com/
-  [10]: www.OpenStreetMap.org.
-  [11]: http://planet.openstreetmap.org/
-  [12]: http://overpass-turbo.eu/
-  [13]: https://github.com/DoveSiButta/DoveSiButta-leaflet
+  [5]: http://www.openstreetmap.org/copyright
+  [6]: http://leafletjs.com/
+  [7]: http://www.openstreetmap.org/
+  [8]: http://overpass-api.de/
+  [9]: http://openlayers.org/
+  [10]: https://www.mapbox.com/
+  [11]: www.OpenStreetMap.org.
+  [12]: http://planet.openstreetmap.org/
+  [13]: http://overpass-turbo.eu/
+  [14]: https://github.com/DoveSiButta/DoveSiButta-leaflet
