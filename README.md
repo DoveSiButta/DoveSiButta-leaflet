@@ -52,12 +52,30 @@ Leaflet is a Javascript library for displaying a map in a HTML page and working 
 OpenStreetMap
 ------------
 OpenStreetMap is a project to create a "wiki" map of the world. This project is ran by the OpenStreetMap Foundation. The OpenStreetMap database is a source for both Points of Interest and tiles, and it is made accessible to end-users through the portal [OpenStreetMap.org.][10], but the entire database can be [downloaded][11] on your hard drive (if you know what to do with it). 
-OpenStreetMap data is more useful if made available through certain APIs, such as OverPass API. 
+OpenStreetMap data is more useful if made available through certain APIs, such as OverPass API.
+Going back to examples, let's say you want to look for a city you know by name -but not by location. In that case, OpenStreetMap.org offers a handy search box that returns a list of places according to the terms searched by the user. Although this is seamless to the end-user, this search is actually delivered by another service called **OpenStreetMap Nominatim**. 
 
 Overpass API
 -----------
+Overpass API is, as the name says and API (an interface) made to run queries on the OpenStreetMap database so you don't have to come up for a way to do that yourself. 
+With Overpass API a developer can run queries for content within OpenStreetMap database, ranging from streets to any kind of *tagged* object there contained.
+[Overpass-Turbo][12] is a great tool to test queries on Overpass API and export them (or the data) into various formats.
+Overpass API is a service targeted to developers, so they can build easy to use apps on top of OpenStreetMap contents. 
 
+MapBox
+------
+MapBox is a commercial company that offers services and tools to make the best out of open data. The first reason you will be involved with MapBox is its *tile service*, which means that MapBox can offer you (as a developer) a way to customize the aspect of the OpenStreetMap maps you are presenting to your users. MapBox also contributes to the open source community with components for various platforms, such as SDKs to integrate OpenStreetMap maps into iOS. 
 
+MapQuest
+--------
+As MapBox, also MapQuest is a commercial company. While MapBox is targeted to developers, MapQuest is targeted to end-users and offers services (such as directions and location search) on top of open data maps, powered by the OpenStreetMap content. 
+
+## A real-life scenario: Leaflet with OpenStreetMap, MapBox and Overpass API ##
+
+So how does all of it fit together?
+I will now run through the building of DoveSiButta, an open-data service for recycling bins localization. DoveSiButta translates to WhereDoIThrowIt in Italian, that is where the service was originated. 
+ 
+The project is also [available on GitHub][13].
  
 Some conclusions
 ---------------
@@ -96,3 +114,5 @@ This is harder. Say that you have information about locations provided by Google
   [9]: https://www.mapbox.com/
   [10]: www.OpenStreetMap.org.
   [11]: http://planet.openstreetmap.org/
+  [12]: http://overpass-turbo.eu/
+  [13]: https://github.com/DoveSiButta/DoveSiButta-leaflet
