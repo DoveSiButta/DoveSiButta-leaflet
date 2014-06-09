@@ -52,7 +52,17 @@
       </div>
 
       <div class="row marketing">
+        <div class="col-lg-6"> 
+          <!-- Types -->
+          <h3>Cosa butti?</h3>
+          <select class="form-control" name="bin-type-select" id="bin-type-select">
+            <option value="1">Plastica</option>
+            <option value="2">Vetro</option>
+            <option value="3">Alluminio</option>
+          </select>
+        </div>
         <div class="col-lg-6 pull-right">
+          <h3>Dove?</h3>
           <div class="input-group">
             <input type="text" class="form-control" id="address">
             <span class="input-group-btn">
@@ -122,10 +132,10 @@
     <script src="awesome-markers/leaflet.awesome-markers.min.js"></script>
     <!-- Locate plugin -->
     <script src="leaflet-locatecontrol/src/L.Control.Locate.js"></script>    
-    <!-- leaflet OSM plugin -->
-    <!-- <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-osm/v0.1.0/leaflet-osm.js'></script> -->
+    <!-- Leaflet OSM plugin -->
+    <script src="leaflet-osm/leaflet-osm.js"></script>
     <!-- my code -->
-    <script src="map.js"></script>
+    <script src="app.js"></script>
 
   </body>
 </html>

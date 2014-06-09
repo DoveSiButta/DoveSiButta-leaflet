@@ -44,3 +44,8 @@ Choose your region and hit the Run button above!
   <recurse type="down"/>
   <print mode="skeleton" order="quadtile"/>
 </osm-script>
+
+<!-- 
+
+[out:json][timeout:25];(node["amenity"="recycling"]["recycling:glass"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125);way["amenity"="recycling"]["recycling:glass"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125);relation["amenity"="recycling"]["recycling:glass"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125);node["amenity"="recycling"]["recycling:glass_bottles"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125);way["amenity"="recycling"]["recycling:glass_bottles"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125);relation["amenity"="recycling"]["recycling:glass_bottles"="yes"](45.27102073184517,9.99481201171875,45.623642598278074,10.520782470703125););out body;>;out;
+ -->

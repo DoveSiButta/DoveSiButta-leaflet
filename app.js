@@ -1,6 +1,19 @@
 //The Map
 var map;
 var markers = new Array();
+//Constants
+var TYPE_PLASTIC_1 = 1;
+var TYPE_GLASS_2 = 2;
+var TYPE_ALUMINUM_3 = 3;
+var TYPE_GENERIC_4 = 4;
+var TYPE_ORGANIC_5 = 5;
+var TYPE_BATTERIES_6 = 6;
+var TYPE_DRUGS_7 = 7;
+var TYPE_FURNITURE_8 = 8;
+var TYPE_PAPER_9 = 9;
+var TYPE_TONER_10 = 10;
+var TYPE_CLOTHES_11 = 11;
+
 
 $( document ).ready(function() {
 
@@ -88,7 +101,9 @@ function onMapMove(){
 	var maxLat = bounds.getNorth();
 	var maxLon = bounds.getEast();
 	//Load from OSM API OverPass
-	var queryRecycling = 'http://overpass-api.de/api/interpreter?data=[out:json];node[amenity=recycling]('+ minLat +','+ minLon +','+ maxLat +','+ maxLon +');out;';
+	var queryRecycling = 'http://overpass-api.de/api/interpreter?data=';
+	queryRecycling = queryRecycling + queryForBinType($('#bin-type-select').val());
+	// var queryRecycling = '[out:json];node[amenity=recycling]('+ minLat +','+ minLon +','+ maxLat +','+ maxLon +');out;';
 	$.getJSON(queryRecycling, function(data){
 		//Debug
 		// console.log(data);
@@ -108,11 +123,55 @@ function onMapMove(){
     			markerColor: 'green',
     			iconColor: 'white'
   			});
-			//The popup content
-			var popupContent = '<p>id: '+e.id+'<br>amenity:'+ e.tags.amenity+'</p>'
-  			var marker = L.marker([e.lat,e.lon], {icon: greenIcon}).addTo(map);
-  			markers[marker._leaflet_id] = marker;
-  			marker.bindPopup(popupContent);
+			 if (e.type == "node" && e.tags) { //We want only nodes with Tag (otherwise they are probably part of "way" or "relation")
+				 //The popup content
+				if (e.tags) {var popupContent = '<p>id: '+e.id+'<br>amenity:'+ e.tags.amenity+'</p>';}
+				else{var popupContent = '<p>id: '+e.id +'</p>';}
+	  			var marker = L.marker([e.lat,e.lon], {icon: greenIcon}).addTo(map);
+	  			markers[marker._leaflet_id] = marker;
+	  			marker.bindPopup(popupContent);
+  			}
+  			else if(e.type == "way"){
+				var osm_id = e.id; 				
+  				$.ajax({
+					url: "http://www.openstreetmap.org/api/0.6/way/" + osm_id +"/full",
+					//"http://www.openstreetmap.org/api/0.6/node/164979149",
+					// or "http://www.openstreetmap.org/api/0.6/way/52477381/full"
+					dataType: "xml",
+					success: function (xml) {
+						var layer = new L.OSM.DataLayer(xml).addTo(map);
+						markers[layer._leaflet_id] = layer;
+
+						if (e.tags) {var popupContent = '<p>id: '+e.id+'<br>amenity:'+ e.tags.amenity+'</p>';}
+						else{var popupContent = '<p>id: '+e.id +'</p>';}
+						layer.bindPopup(popupContent);
+
+						// map.fitBounds(layer.getBounds());
+					}
+					//
+					//$.each(nodes, function(key, value){ console.log(key) })
+				});
+  			}
+  			else if(e.type == "relation"){
+				var osm_id = e.id; 				
+  				$.ajax({
+					url: "http://www.openstreetmap.org/api/0.6/relation/" + osm_id +"/full",
+					//"http://www.openstreetmap.org/api/0.6/node/164979149",
+					// or "http://www.openstreetmap.org/api/0.6/way/52477381/full"
+					dataType: "xml",
+					success: function (xml) {
+						var layer = new L.OSM.DataLayer(xml).addTo(map);
+						markers[layer._leaflet_id] = layer;
+
+						
+						if (e.tags) {var popupContent = '<p>id: '+e.id+'<br>amenity:'+ e.tags.amenity+'</p>';}
+						else{var popupContent = '<p>id: '+e.id +'</p>';}
+						layer.bindPopup(popupContent);
+						// map.fitBounds(layer.getBounds());
+					}
+				});
+  			}
+			
 
 		};
 
@@ -137,6 +196,35 @@ $('#button-go').click(function(event) {
 	};
 });
 
+$('#bin-type-select').change(function(){
+	// var elem = $(this);
+	// alert(queryForBinType(elem.val()) );
+	onMapMove();
+});
+
+function queryForBinType(binType){
+
+	var bounds = map.getBounds(); //this is an object of type latLngBounds http://leafletjs.com/reference.html#latlngbounds
+	var minLat = bounds.getSouth();
+	var minLon = bounds.getWest();
+	var maxLat = bounds.getNorth();
+	var maxLon = bounds.getEast();
+	var query = "";
+	if (binType == TYPE_PLASTIC_1) {
+		query = '[out:json][timeout:25];(node["amenity"="recycling"]["recycling:paper"="yes"]('+ minLat +',' + minLon+ ','+maxLat+',' + maxLon + ');way["amenity"="recycling"]["recycling:paper"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');relation["amenity"="recycling"]["recycling:paper"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + '););out body;>;out;';
+	}
+	else if (binType == TYPE_GLASS_2) {
+		query = '[out:json][timeout:25];(node["amenity"="recycling"]["recycling:glass"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');way["amenity"="recycling"]["recycling:glass"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');relation["amenity"="recycling"]["recycling:glass"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');node["amenity"="recycling"]["recycling:glass_bottles"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');way["amenity"="recycling"]["recycling:glass_bottles"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');relation["amenity"="recycling"]["recycling:glass_bottles"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + '););out body;>;out;';
+	}
+	else if(binType == TYPE_ALUMINUM_3){
+		query = '[out:json][timeout:25];(node["amenity"="recycling"]["recycling:aluminium"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');way["amenity"="recycling"]["recycling:aluminium"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');relation["amenity"="recycling"]["recycling:aluminium"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');node["amenity"="recycling"]["recycling:cans"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');way["amenity"="recycling"]["recycling:cans"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + ');relation["amenity"="recycling"]["recycling:cans"="yes"](' + minLat + ',' + minLon + ',' + maxLat + ',' + maxLon + '););out body;>;out;';
+	}
+	else if(binType == TYPE_GENERIC_4)
+	{
+
+	}
+	return query;
+}
 
 function addr_search() {
 

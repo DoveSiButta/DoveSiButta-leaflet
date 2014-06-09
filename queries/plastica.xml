@@ -28,3 +28,7 @@ Choose your region and hit the Run button above!
   <recurse type="down"/>
   <print mode="skeleton" order="quadtile"/>
 </osm-script>
+
+<!-- 
+[out:json][timeout:25];(node["amenity"="recycling"]["recycling:paper"="yes"](45.33911520890592,9.97283935546875,45.6913124767407,10.498809814453125);way["amenity"="recycling"]["recycling:paper"="yes"](45.33911520890592,9.97283935546875,45.6913124767407,10.498809814453125);relation["amenity"="recycling"]["recycling:paper"="yes"](45.33911520890592,9.97283935546875,45.6913124767407,10.498809814453125););out body;>;out skel qt;;
+ -->
