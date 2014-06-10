@@ -56,6 +56,9 @@ $( document ).ready(function() {
 	//Add the Locate control
 	L.control.locate().addTo(map);
 
+	//Comuni Italiani
+	omnivore.topojson('topojson/comuni.topojson').addTo(map);
+
 	//Add the callbacks to load data from OSM API (Overpass)
 	map.on('load', onMapMove);
 	map.on('moveend', onMapMove);
