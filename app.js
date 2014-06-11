@@ -14,6 +14,7 @@ var TYPE_PAPER_9 = 9;
 var TYPE_TONER_10 = 10;
 var TYPE_CLOTHES_11 = 11;
 
+var comuni_doortodoor = [17078, 17002]; //This should come from a database!!
 
 $( document ).ready(function() {
 
@@ -56,8 +57,26 @@ $( document ).ready(function() {
 	//Add the Locate control
 	L.control.locate().addTo(map);
 
+	function eachLayer(layer) {
+    var feature = layer.toGeoJSON();
+    if (feature.properties && feature.properties.name) {
+    	var popupContent = "<p>"+feature.properties.name+"</p>";
+    	if (comuni_doortodoor.indexOf(feature.id) != -1) {
+    		popupContent = popupContent + '<p>Effettua raccolta porta a porta</p>';
+    	};
+        layer.bindPopup(popupContent);
+    }
+}
+
 	//Comuni Italiani
-	omnivore.topojson('topojson/comuni.topojson').addTo(map);
+	var comuni = omnivore.topojson('topojson/com2011_g.topojson');
+	comuni.on('ready', function() {
+        // map.fitBounds(comuni.getBounds());
+        map.addLayer(comuni );
+        comuni.eachLayer(eachLayer);
+    });
+    comuni.addTo(map);
+
 
 	//Add the callbacks to load data from OSM API (Overpass)
 	map.on('load', onMapMove);
