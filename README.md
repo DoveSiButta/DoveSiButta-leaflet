@@ -1,4 +1,4 @@
-## (Open) Data Maps Wanderer ##
+## Building an Open Data / Open Maps App ##
 
 Introduction
 -----------
