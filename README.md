@@ -80,6 +80,25 @@ So how does all of it fit together?
 I will now run through the building of a web application that uses Leaflet to display a map loaded by MapBox, that allows to search for a place (e.g. a City) and that retrieves from OpenStreetMap database the location of recycle facilities in the area. 
  
 The project is also [available on GitHub][14].
+
+
+# Building the platform
+
+From this point onwards I will go through the building process of a web application that uses the power of open maps and tools to display information related to recycling. 
+
+ 1. Display a map in the page and load a starting location
+ 2. Search for a location
+ 3. Display content from OpenStreetMap into the map, and refresh the map when the user drags it or changes location
+ 4. Allow to filter for different data types (In this case, the recycling types: Plastic, Glass, etc.)
+ 5. Load and display municipality borders on top of the map
+ 6. Assign different colors to municipalities based on certain information (in our case, depending whether the municipality performs collection or waste door-to-door)
+
+## Display a map
+
+## Search for a location 
+
+
+
  
 Notes and Questions
 ---------------
