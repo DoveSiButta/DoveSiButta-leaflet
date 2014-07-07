@@ -121,8 +121,12 @@ This is harder. Say that you have information about locations provided by Google
 
 ----------
 
+Resources:
 
+ - [GeoJSON][http://geojson.org/]
  
+----------
+
 > Written with [StackEdit](https://stackedit.io/).
 
 
